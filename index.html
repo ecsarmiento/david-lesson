@@ -47,8 +47,12 @@
             font-size: clamp(2rem, 5vw, 3.2rem);
             margin-bottom: 15px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: slideDown 1s ease-out;
         }
-        .hero-subtitle { font-size: 1.25rem; opacity: 0.9; margin-bottom: 30px; }
+        .hero-subtitle { 
+            font-size: 1.25rem; opacity: 0.9; margin-bottom: 30px;
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
         .hero-tagline {
             display: inline-block;
             background: rgba(255,255,255,0.15);
@@ -56,6 +60,7 @@
             border-radius: 50px;
             font-weight: 500;
             backdrop-filter: blur(4px);
+            animation: fadeIn 1.2s ease-out 0.6s both;
         }
         
         /* Navigation Bar */
@@ -80,11 +85,25 @@
             font-weight: 600;
             color: var(--dark);
             border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 3px;
+            background: var(--secondary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
         .nav-link:hover, .nav-link.active {
             color: var(--primary);
-            border-bottom-color: var(--secondary);
             background: rgba(44,90,160,0.03);
         }
         
@@ -93,11 +112,25 @@
         .section {
             margin-bottom: 80px;
             scroll-margin-top: 80px;
-            animation: fadeUp 0.7s ease both;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .section-title {
             font-size: 1.9rem;
@@ -108,6 +141,10 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            transition: transform 0.3s ease;
+        }
+        .section-title:hover {
+            transform: translateX(8px);
         }
         .section-number {
             background: var(--grad-gold);
@@ -117,6 +154,10 @@
             display: flex; align-items: center; justify-content: center;
             font-weight: bold;
             font-size: 1rem;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .section-title:hover .section-number {
+            transform: rotate(15deg) scale(1.1);
         }
         
         /* Verse Cards */
@@ -128,6 +169,12 @@
             box-shadow: var(--shadow);
             margin: 20px 0;
             position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+        }
+        .verse-card:hover {
+            transform: scale(1.01) translateX(5px);
+            box-shadow: 0 6px 25px rgba(212,160,23,0.15);
         }
         .verse-card::before {
             content: '"';
@@ -157,6 +204,7 @@
             left: 12px; top: 0; bottom: 0;
             width: 3px;
             background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 3px;
         }
         .timeline-item {
             position: relative;
@@ -165,9 +213,18 @@
             padding: 25px 30px;
             border-radius: 16px;
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateX(-20px);
         }
-        .timeline-item:hover { transform: translateX(8px); }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .timeline-item:hover { 
+            transform: translateX(12px) scale(1.01); 
+            box-shadow: 0 8px 30px rgba(44,90,160,0.12);
+        }
         .timeline-dot {
             position: absolute;
             left: -34px; top: 25px;
@@ -175,7 +232,12 @@
             background: var(--secondary);
             border-radius: 50%;
             border: 4px solid white;
-            box-shadow: 0 0 0 3px var(--secondary);
+            box-shadow: 0 0 0 3px var(--secondary), 0 0 15px rgba(212,160,23,0.3);
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px var(--secondary), 0 0 25px rgba(212,160,23,0.5);
         }
         .timeline-title { font-weight: bold; font-size: 1.2rem; color: var(--primary); margin-bottom: 8px; }
         
@@ -191,19 +253,35 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .gallery-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .gallery-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-12px) scale(1.02);
             box-shadow: var(--shadow-strong);
         }
         .gallery-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        .gallery-body { padding: 20px; }
-        .gallery-body h4 { color: var(--primary); margin-bottom: 8px; font-size: 1.1rem; }
+        .gallery-card:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-body { padding: 20px; transition: background 0.3s ease; }
+        .gallery-card:hover .gallery-body {
+            background: rgba(44,90,160,0.02);
+        }
+        .gallery-body h4 { color: var(--primary); margin-bottom: 8px; font-size: 1.1rem; transition: color 0.3s ease; }
+        .gallery-card:hover .gallery-body h4 {
+            color: #1a3a6e;
+        }
         .gallery-body p { color: #555; font-size: 0.95rem; }
         
         /* Video Cards */
@@ -216,13 +294,21 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-left: 4px solid transparent;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateX(-15px);
+        }
+        .video-card.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
         .video-card:hover {
             border-left-color: var(--primary);
             background: #f8fbff;
-            transform: translateX(5px);
+            transform: translateX(8px);
+            box-shadow: 0 6px 25px rgba(44,90,160,0.12);
         }
         .video-icon {
             width: 60px; height: 60px;
@@ -231,41 +317,79 @@
             display: flex; align-items: center; justify-content: center;
             color: white; font-size: 1.5rem;
             flex-shrink: 0;
+            transition: all 0.4s ease;
         }
-        .video-info h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .video-card:hover .video-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .video-info h4 { font-size: 1.1rem; margin-bottom: 4px; transition: color 0.2s ease; }
+        .video-card:hover .video-info h4 {
+            color: var(--primary);
+        }
         .video-info p { font-size: 0.9rem; color: #666; }
-        .video-link { color: var(--primary); font-weight: 600; margin-top: 6px; display: inline-block; }
-        .video-link:hover { text-decoration: underline; }
+        .video-link { color: var(--primary); font-weight: 600; margin-top: 6px; display: inline-block; transition: transform 0.2s ease; }
+        .video-card:hover .video-link {
+            transform: translateX(5px);
+        }
         
         /* Drawings & Arts */
         .arts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin: 30px 0;
         }
         .art-card {
             background: white;
-            border-radius: 12px;
-            padding: 25px;
+            border-radius: 16px;
+            padding: 0;
             box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(25px) scale(0.95);
         }
-        .art-card:hover { transform: scale(1.03); }
-        .art-icon { font-size: 3rem; margin-bottom: 15px; }
-        .art-title { font-weight: bold; color: var(--accent); margin-bottom: 8px; }
-        .art-desc { font-size: 0.9rem; color: #666; }
+        .art-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .art-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--shadow-strong);
+        }
+        .art-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .art-card:hover .art-image {
+            transform: scale(1.05);
+        }
+        .art-content {
+            padding: 25px;
+        }
+        .art-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .art-title { font-weight: bold; color: var(--accent); margin-bottom: 8px; font-size: 1.2rem; }
+        .art-desc { font-size: 0.95rem; color: #666; margin-bottom: 15px; }
         .art-materials {
             background: #f0f8f4;
             padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: left;
+            border-radius: 10px;
+            margin-bottom: 15px;
             font-size: 0.9rem;
+            transition: background 0.3s ease;
         }
-        .art-steps { margin-top: 12px; text-align: left; padding-left: 18px; font-size: 0.9rem; }
-        .art-steps li { margin: 6px 0; }
+        .art-card:hover .art-materials {
+            background: #e6f3ec;
+        }
+        .art-materials strong { color: var(--accent); display: block; margin-bottom: 6px; }
+        .art-materials ul { padding-left: 18px; margin-top: 4px; }
+        .art-steps { margin-top: 15px; padding-left: 18px; font-size: 0.9rem; }
+        .art-steps li { margin: 8px 0; transition: transform 0.2s ease; }
+        .art-steps li:hover {
+            transform: translateX(5px);
+        }
         
         /* Key Takeaways */
         .takeaways {
@@ -274,22 +398,46 @@
             padding: 35px;
             box-shadow: var(--shadow-strong);
             margin-top: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .takeaways h3 { color: var(--primary); margin-bottom: 20px; font-size: 1.4rem; }
+        .takeaways.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .takeaways h3 { color: var(--primary); margin-bottom: 25px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .takeaways h3::before {
+            content: '🌟';
+            font-size: 1.8rem;
+        }
         .takeaway-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 12px 0;
+            display: flex; align-items: flex-start; gap: 15px;
+            padding: 18px 0;
             border-bottom: 1px dashed #e0e0e0;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        .takeaway-item:hover {
+            background: rgba(44,90,160,0.03);
+            padding-left: 10px;
+            padding-right: 10px;
         }
         .takeaway-item:last-child { border-bottom: none; }
-        .takeaway-icon { font-size: 1.3rem; }
+        .takeaway-icon { 
+            font-size: 1.4rem; 
+            transition: transform 0.3s ease;
+        }
+        .takeaway-item:hover .takeaway-icon {
+            transform: scale(1.2);
+        }
         
         /* Footer */
         .footer {
             background: var(--dark);
             color: white;
             text-align: center;
-            padding: 30px 20px;
+            padding: 35px 20px;
             margin-top: 60px;
         }
         
@@ -299,10 +447,16 @@
             .nav-link { padding: 10px 14px; font-size: 0.9rem; }
             .hero { padding: 50px 20px 40px; }
             .verse-card { padding: 20px; }
+            .arts-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Audio for Click Sounds -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJgUFLIu5tHxJg" type="audio/wav">
+    
 
     <!-- Hero Section -->
     <header class="hero">
@@ -317,11 +471,11 @@
     <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-inner">
-            <a href="#verses" class="nav-link">📜 Verses</a>
-            <a href="#story" class="nav-link">📖 Storytelling</a>
-            <a href="#pictures" class="nav-link">🖼️ Pictures</a>
-            <a href="#videos" class="nav-link">🎬 Videos</a>
-            <a href="#arts" class="nav-link">🎨 Drawings & Arts</a>
+            <a href="#verses" class="nav-link" data-click>📜 Verses</a>
+            <a href="#story" class="nav-link" data-click>📖 Storytelling</a>
+            <a href="#pictures" class="nav-link" data-click>🖼️ Pictures</a>
+            <a href="#videos" class="nav-link" data-click>🎬 Videos</a>
+            <a href="#arts" class="nav-link" data-click>🎨 Drawings & Arts</a>
         </div>
     </nav>
 
@@ -464,7 +618,7 @@
             
             <p style="font-size: 1.1rem; margin-bottom: 25px;">Visual storytelling brings David’s journey to life — click to watch.</p>
             
-            <a href="https://www.youtube.com/watch?v=RmCpBUpsGno" target="_blank" rel="noopener">
+            <a href="https://www.youtube.com/watch?v=RmCpBUpsGno" target="_blank" rel="noopener" data-click>
                 <div class="video-card">
                     <div class="video-icon">▶</div>
                     <div class="video-info">
@@ -475,7 +629,7 @@
                 </div>
             </a>
             
-            <a href="https://www.youtube.com/watch?v=lIFrBErIF0U" target="_blank" rel="noopener">
+            <a href="https://www.youtube.com/watch?v=lIFrBErIF0U" target="_blank" rel="noopener" data-click>
                 <div class="video-card">
                     <div class="video-icon">🧱</div>
                     <div class="video-info">
@@ -486,7 +640,7 @@
                 </div>
             </a>
             
-            <a href="https://www.youtube.com/results?search_query=David+and+Goliath+Bible+Story+for+Kids" target="_blank" rel="noopener">
+            <a href="https://www.youtube.com/results?search_query=David+and+Goliath+Bible+Story+for+Kids" target="_blank" rel="noopener" data-click>
                 <div class="video-card">
                     <div class="video-icon">⚔️</div>
                     <div class="video-info">
@@ -508,95 +662,105 @@
             <p style="font-size: 1.1rem; margin-bottom: 25px;">Express what you’ve learned — create something that reminds you of David’s heart and God’s faithfulness.</p>
             
             <div class="arts-grid">
+                <!-- Craft 1: Paper Plate Sheep -->
                 <div class="art-card">
-                    <div class="art-icon">🐑</div>
-                    <h3 class="art-title">David’s Sheep Craft</h3>
-                    <p class="art-desc">Make your own fluffy sheep — a reminder that God is our Good Shepherd.</p>
-                    <div class="art-materials">
-                        <strong>Materials:</strong>
-                        <ul style="margin-top: 6px; padding-left: 18px;">
-                            <li>Paper plate or cardstock</li>
-                            <li>Cotton balls</li>
-                            <li>Black paper (face & ears)</li>
-                            <li>Glue, scissors, crayons</li>
-                        </ul>
+                    <img src="paper-plate-sheep.jpg" alt="Paper Plate Sheep Craft" class="art-image">
+                    <div class="art-content">
+                        <h3 class="art-title">🐑 Paper Plate Sheep</h3>
+                        <p class="art-desc">Make your own fluffy sheep — a reminder that God is our Good Shepherd.</p>
+                        <div class="art-materials">
+                            <strong>Materials:</strong>
+                            <ul>
+                                <li>Paper plate</li>
+                                <li>Cotton balls</li>
+                                <li>Black construction paper</li>
+                                <li>Glue, scissors, crayons</li>
+                            </ul>
+                        </div>
+                        <ol class="art-steps">
+                            <li>Cut a black face & ears shape</li>
+                            <li>Glue cotton balls for fluffy wool</li>
+                            <li>Add eyes and attach face</li>
+                            <li>Write: <em>"The Lord is my shepherd — Psalm 23:1"</em></li>
+                        </ol>
                     </div>
-                    <ol class="art-steps">
-                        <li>Cut a black sheep face shape</li>
-                        <li>Glue cotton for fluffy wool</li>
-                        <li>Add eyes & ears</li>
-                        <li>Write: <em>"The Lord is my shepherd — Psalm 23:1"</em></li>
-                        <li>Decorate with hearts ❤️</li>
-                    </ol>
                 </div>
                 
+                <!-- Craft 2: Five Smooth Stones -->
                 <div class="art-card">
-                    <div class="art-icon">🪨</div>
-                    <h3 class="art-title">Five Smooth Stones</h3>
-                    <p class="art-desc">Design a reminder of what gave David confidence — not stones, but God.</p>
-                    <div class="art-materials">
-                        <strong>Materials:</strong>
-                        <ul style="margin-top: 6px; padding-left: 18px;">
-                            <li>5 small stones or paper circles</li>
-                            <li>Markers / paint</li>
-                            <li>String or ribbon</li>
-                        </ul>
+                    <img src="david-shepherd-sheep.jpg" alt="David the Shepherd & Sheep" class="art-image">
+                    <div class="art-content">
+                        <h3 class="art-title">🪨 Five Smooth Stones</h3>
+                        <p class="art-desc">Design a reminder of what gave David confidence — not stones, but God.</p>
+                        <div class="art-materials">
+                            <strong>Materials:</strong>
+                            <ul>
+                                <li>5 small stones or paper circles</li>
+                                <li>Markers / paint</li>
+                                <li>String or ribbon</li>
+                            </ul>
+                        </div>
+                        <ol class="art-steps">
+                            <li>Write one truth on each stone:</li>
+                            <li>• God sees the heart</li>
+                            <li>• I can trust God</li>
+                            <li>• God is stronger than fear</li>
+                            <li>• God forgives & keeps promises</li>
+                        </ol>
                     </div>
-                    <ol class="art-steps">
-                        <li>Write one truth on each stone:</li>
-                        <li>• God sees the heart</li>
-                        <li>• I can trust God</li>
-                        <li>• God is stronger than fear</li>
-                        <li>• God forgives</li>
-                        <li>• God keeps His promises</li>
-                    </ol>
                 </div>
                 
+                <!-- Craft 3: Heart Poster -->
                 <div class="art-card">
-                    <div class="art-icon">💚</div>
-                    <h3 class="art-title">Heart Poster</h3>
-                    <p class="art-desc">Design a poster that shows what it means to have a heart for God.</p>
-                    <div class="art-materials">
-                        <strong>Materials:</strong>
-                        <ul style="margin-top: 6px; padding-left: 18px;">
-                            <li>Large paper / cardstock</li>
-                            <li>Colored pencils, markers</li>
-                            <li>1 Samuel 16:7 printed or written</li>
-                        </ul>
+                    <div class="art-content" style="padding: 30px;">
+                        <div class="art-icon">💚</div>
+                        <h3 class="art-title">Heart Poster</h3>
+                        <p class="art-desc">Design a poster showing what it means to have a heart for God.</p>
+                        <div class="art-materials">
+                            <strong>Materials:</strong>
+                            <ul>
+                                <li>Large paper / cardstock</li>
+                                <li>Colored pencils, markers</li>
+                                <li>1 Samuel 16:7 reference</li>
+                            </ul>
+                        </div>
+                        <ol class="art-steps">
+                            <li>Draw a large heart in center</li>
+                            <li>Inside: faith, kindness, honesty, repentance</li>
+                            <li>Outside: things people judge by</li>
+                            <li>Add: <em>"The Lord looks at the heart"</em></li>
+                        </ol>
                     </div>
-                    <ol class="art-steps">
-                        <li>Draw a large heart in center</li>
-                        <li>Inside: what pleases God (faith, kindness, honesty, repentance)</li>
-                        <li>Outside: things people notice but God doesn't judge by</li>
-                        <li>Decorate with Psalm 23:1</li>
-                    </ol>
                 </div>
                 
+                <!-- Craft 4: Psalm 23 Illustration -->
                 <div class="art-card">
-                    <div class="art-icon">📜</div>
-                    <h3 class="art-title">Psalm 23 Illustration</h3>
-                    <p class="art-desc">Draw or paint your own picture of what God as your Shepherd looks like.</p>
-                    <div class="art-materials">
-                        <strong>Materials:</strong>
-                        <ul style="margin-top: 6px; padding-left: 18px;">
-                            <li>Drawing paper</li>
-                            <li>Watercolors or crayons</li>
-                            <li>Psalm 23:1–3 as reference</li>
-                        </ul>
+                    <div class="art-content" style="padding: 30px;">
+                        <div class="art-icon">📜</div>
+                        <h3 class="art-title">Psalm 23 Art</h3>
+                        <p class="art-desc">Draw or paint your vision of God as your Shepherd.</p>
+                        <div class="art-materials">
+                            <strong>Materials:</strong>
+                            <ul>
+                                <li>Drawing paper</li>
+                                <li>Watercolors or crayons</li>
+                                <li>Psalm 23:1–3 reference</li>
+                            </ul>
+                        </div>
+                        <ol class="art-steps">
+                            <li>Green pastures → peace & provision</li>
+                            <li>Quiet waters → refreshment & calm</li>
+                            <li>Shepherd's staff → guidance & protection</li>
+                            <li>Add your name → you are one of His sheep</li>
+                        </ol>
                     </div>
-                    <ol class="art-steps">
-                        <li>Green pastures → peace & provision</li>
-                        <li>Quiet waters → refreshment & calm</li>
-                        <li>Shepherd's staff → guidance & protection</li>
-                        <li>Add your name → you are one of His sheep</li>
-                    </ol>
                 </div>
             </div>
         </section>
 
         <!-- Key Takeaways -->
         <div class="takeaways">
-            <h3>🌟 Key Takeaways — What We Remember</h3>
+            <h3>Key Takeaways — What We Remember</h3>
             
             <div class="takeaway-item">
                 <span class="takeaway-icon">👀</span>
@@ -639,13 +803,33 @@
     <!-- Footer -->
     <footer class="footer">
         <p><strong>Lesson 3: David — A Shepherd Boy Who Became King</strong></p>
-        <p style="margin-top: 8px; opacity: 0.7; font-size: 0.9rem;">Grade 6 & 7 Bible Lesson • All images & videos linked to free sources • Scriptures from ESV</p>
+        <p style="margin-top: 8px; opacity: 0.7; font-size: 0.9rem;">Grade 6 & 7 Bible Lesson • Scriptures from ESV</p>
         <p style="margin-top: 12px; font-size: 0.85rem; opacity: 0.5;">"The Lord is my shepherd; I shall not want." — Psalm 23:1</p>
     </footer>
 
-    <!-- Smooth Scroll Script -->
+    <!-- Scripts: Sounds + Transitions -->
     <script>
-        // Smooth scroll for navigation
+        // Play click sound
+        const clickSound = document.getElementById('clickSound');
+        function playClickSound() {
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.3;
+                clickSound.play().catch(() => {});
+            }
+        }
+        
+        // Attach click sound to all elements with data-click
+        document.querySelectorAll('[data-click]').forEach(el => {
+            el.addEventListener('click', playClickSound);
+        });
+        
+        // Also play on nav links
+        document.querySelectorAll('.nav-link').forEach(el => {
+            el.addEventListener('mousedown', playClickSound);
+        });
+        
+        // Smooth scroll
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -653,10 +837,36 @@
                 const targetSection = document.querySelector(targetId);
                 targetSection.scrollIntoView({ behavior: 'smooth' });
                 
-                // Update active state
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+        
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate children sequentially
+                    const children = entry.target.querySelectorAll('.timeline-item, .gallery-card, .video-card, .art-card');
+                    children.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('visible');
+                        }, 120 * index);
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('.section, .takeaways').forEach(section => {
+            observer.observe(section);
         });
         
         // Highlight active section on scroll
