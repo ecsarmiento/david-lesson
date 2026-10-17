@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson 3: David — A Shepherd Boy Who Became King</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐑</text></svg>">
     
     <style>
@@ -31,13 +30,13 @@
         }
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         
-        /* Level Select */
+        /* Level Selector */
         .level-selector { text-align: center; padding: 50px 20px; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
         .level-selector h1 { 
             font-size: clamp(2rem, 5vw, 3rem); color: var(--primary); margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        .subtitle { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+        .subtitle { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
         .level-buttons { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
         .level-btn { 
             padding: 50px 60px; border: none; border-radius: 24px; font-size: 1.5rem; font-weight: bold; 
@@ -59,20 +58,41 @@
             50% { transform: translateY(-10px); }
         }
         
-        /* Compact Caption Notes */
+        /* Compact Caption Notes — No Copy Button */
         .caption-notes {
             background: #f3e5f5;
             border-left: 4px solid var(--purple-accent);
             padding: 15px 20px;
             border-radius: 0 12px 12px 0;
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 550px;
+            margin: 0 auto 25px;
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #444;
+            text-align: left;
         }
         .caption-notes strong { color: var(--purple-accent); display: block; margin-bottom: 4px; }
         .caption-notes p { margin: 4px 0; }
+        
+        /* Resource Links Grid */
+        .resource-section {
+            max-width: 700px; margin: 0 auto 40px; text-align: left;
+        }
+        .resource-section h3 {
+            color: var(--primary); margin: 20px 0 10px; font-size: 1.1rem;
+            border-bottom: 2px solid #e0e0e0; padding-bottom: 5px;
+        }
+        .resource-links {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;
+        }
+        .resource-link {
+            padding: 8px 14px; border-radius: 20px; font-size: 0.9rem; text-decoration: none;
+            transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .resource-link.rel { background: #e3f2fd; color: #1565c0; }
+        .resource-link.abs { background: #fff3e0; color: #e65100; }
+        .resource-link:hover { transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .resource-note { font-size: 0.8rem; color: #888; margin-left: 4px; }
         
         /* Lesson Area */
         .lesson-container { display: none; padding: 20px; animation: fadeIn 0.6s ease; }
@@ -218,9 +238,10 @@
             .materials-list { columns: 1; }
             .back-btn { position: static; margin-bottom: 20px; display: inline-block; width: 100%; text-align: center; }
             .gallery-grid { grid-template-columns: 1fr; }
+            .resource-links { justify-content: center; }
         }
         @media print {
-            .nav-buttons, .dots, .back-btn, .keyboard-hint { display: none !important; }
+            .nav-buttons, .dots, .back-btn, .keyboard-hint, .resource-section { display: none !important; }
             .slide { min-height: auto; page-break-after: always; }
         }
     </style>
@@ -248,6 +269,57 @@
                 <p>💛 God looks at the heart! David trusted God, defeated Goliath, became king, and learned to repent when he sinned.</p>
                 <p>👇 Choose your level to follow along!</p>
                 <p>📖 Memory Verse: Psalm 23:1–3</p>
+            </div>
+
+            <!-- Resource Links by Category -->
+            <div class="resource-section">
+                <h3>🎬 Videos</h3>
+                <div class="resource-links">
+                    <a href="./videos/david-lesson.mp4" class="resource-link rel">📁 Local: David Lesson Video</a>
+                    <a href="https://www.youtube.com/watch?v=RmCpBUpsGno" target="_blank" class="resource-link abs">▶️ Animated: The Lord Is My Shepherd</a>
+                    <a href="https://www.youtube.com/watch?v=lIFrBErIF0U" target="_blank" class="resource-link abs">🧱 Lego: Psalm 23 Story</a>
+                </div>
+
+                <h3>🖼️ Pictures</h3>
+                <div class="resource-links">
+                    <a href="./pictures/david-shepherd.jpg" class="resource-link rel">📁 David the Shepherd</a>
+                    <a href="./pictures/david-goliath.jpg" class="resource-link rel">📁 David & Goliath</a>
+                    <a href="https://unsplash.com/search/photos/sheep-green-pastures" target="_blank" class="resource-link abs">🌐 Sheep & Pastures Gallery</a>
+                    <a href="https://unsplash.com/search/photos/bible-kingdom-faith" target="_blank" class="resource-link abs">🌐 Faith & Kingdom Images</a>
+                </div>
+
+                <h3>✏️ Drawings</h3>
+                <div class="resource-links">
+                    <a href="./drawings/david-outline.pdf" class="resource-link rel">📁 David Coloring Page</a>
+                    <a href="./drawings/psalm-23-activity.pdf" class="resource-link rel">📁 Psalm 23 Drawing Sheet</a>
+                    <a href="https://www.dltk-bible.com/david_coloring_pages.htm" target="_blank" class="resource-link abs">🌐 DLTK: David Coloring Pages</a>
+                    <a href="https://www.biblekids.eu/psalm-23-coloring.htm" target="_blank" class="resource-link abs">🌐 Psalm 23 Printables</a>
+                </div>
+
+                <h3>📖 Storytelling</h3>
+                <div class="resource-links">
+                    <a href="./story/david-story-script.pdf" class="resource-link rel">📁 Lesson Script</a>
+                    <a href="./story/david-flashcards.pdf" class="resource-link rel">📁 Story Flashcards</a>
+                    <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16&version=NIV" target="_blank" class="resource-link abs">🌐 1 Samuel 16 — Bible Gateway</a>
+                    <a href="https://www.biblegateway.com/passage/?search=1+Samuel+17&version=NIV" target="_blank" class="resource-link abs">🌐 1 Samuel 17 — David & Goliath</a>
+                </div>
+
+                <h3>📜 Verses</h3>
+                <div class="resource-links">
+                    <a href="./verses/psalm-23-memory.pdf" class="resource-link rel">📁 Psalm 23 Memory Cards</a>
+                    <a href="./verses/key-verses-david.pdf" class="resource-link rel">📁 Key Verses: David's Life</a>
+                    <a href="https://www.biblegateway.com/passage/?search=Psalm+23&version=NIV" target="_blank" class="resource-link abs">🌐 Psalm 23 — Full Text</a>
+                    <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16%3A7&version=NIV" target="_blank" class="resource-link abs">🌐 1 Samuel 16:7 — Heart Verse</a>
+                </div>
+
+                <h3>🎨 Arts & Crafts</h3>
+                <div class="resource-links">
+                    <a href="./crafts/sheep-craft-guide.pdf" class="resource-link rel">📁 Sheep Craft Guide</a>
+                    <a href="./crafts/psalm-23-poster.pdf" class="resource-link rel">📁 Make Your Own Verse Poster</a>
+                    <a href="https://www.biblecrafts.com/david-sheep-craft.htm" target="_blank" class="resource-link abs">🌐 Bible Crafts: David & Sheep</a>
+                    <a href="https://www.ministry-to-children.com/david-and-goliath-crafts/" target="_blank" class="resource-link abs">🌐 Ministry-to-Children: David Crafts</a>
+                </div>
+                <p class="resource-note">💡 <span style="color:#1565c0;">Blue = Local/Relative</span> | <span style="color:#e65100;">Orange = Internet/Absolute</span></p>
             </div>
         </div>
 
@@ -313,7 +385,7 @@
                             "The LORD is my shepherd, I lack nothing.<br>
                             He makes me lie down in green pastures."<br>
                             <br>
-                            — Psalm 23:1-2 (NIV)
+                            — Psalm 23:1-2 (NIV) &nbsp; <a href="https://www.biblegateway.com/passage/?search=Psalm+23&version=NIV" target="_blank" style="font-size:0.9rem; color:#666;">🔗 Read full Psalm 23</a>
                         </div>
                         
                         <div class="media-gallery">
@@ -324,6 +396,7 @@
                                     <div class="gallery-card-body">
                                         <h4>Green Pastures</h4>
                                         <p>Shepherds lead sheep to good food and rest.</p>
+                                        <a href="./pictures/david-shepherd.jpg" style="font-size:0.85rem; color:var(--primary);">📁 See more: David the Shepherd</a>
                                     </div>
                                 </div>
                                 <div class="gallery-card">
@@ -336,7 +409,8 @@
                             </div>
                         </div>
                         
-                        <p style="margin-top: 20px; font-size: 1.1rem;">🐑 Practice together: Imagine God as your caring Shepherd who always watches over you!</p>`
+                        <p style="margin-top: 20px; font-size: 1.1rem;">🐑 Practice together: Imagine God as your caring Shepherd who always watches over you!</p>
+                        <p style="margin-top: 10px;"><a href="./verses/psalm-23-memory.pdf" style="color:var(--primary);">📁 Download: Psalm 23 Memory Cards</a></p>`
                     },
                     {
                         title: "🔍 Hook: Who Am I?",
@@ -359,21 +433,22 @@
                         <div class="key-verse-card">
                             <strong>📖 Key Verse:</strong><br>
                             "The LORD looks at the heart."<br>
-                            — 1 Samuel 16:7
+                            — 1 Samuel 16:7 &nbsp; <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16%3A7&version=NIV" target="_blank" style="font-size:0.85rem;">🔗 Bible Gateway</a>
                         </div>
                         
-                        <p style="margin-top: 20px; font-weight: bold; color: var(--primary);">✨ Today we learn about David — who trusted God, defeated a giant, and became king!</p>`
+                        <p style="margin-top: 20px; font-weight: bold; color: var(--primary);">✨ Today we learn about David — who trusted God, defeated a giant, and became king!</p>
+                        <p style="margin-top: 8px;"><a href="./story/david-story-script.pdf" style="color:var(--secondary);">📁 Get the full story script here</a></p>`
                     },
                     {
                         title: "📖 Bible Story",
                         content: `
-                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and Psalm 51</p>
+                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and Psalm 51 &nbsp; <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16&version=NIV" target="_blank" style="font-size:0.9rem;">🔗 Read on Bible Gateway</a></p>
                         
                         <h4 style="margin: 20px 0 10px;">📝 Four Lessons:</h4>
                         <ul class="key-points">
                             <li><strong>👑 God chose David:</strong> Samuel saw David's brothers — tall and impressive. But God chose the shepherd boy!</li>
                             <li class="heart-point"><strong>❤️ God looks at the heart:</strong> 1 Samuel 16:7 — People look at the outside, but the LORD looks at the heart.</li>
-                            <li><strong>⚔️ David trusted God:</strong> Goliath was huge! David didn't fight with his own strength — he trusted God and won!</li>
+                            <li><strong>⚔️ David trusted God:</strong> Goliath was huge! David didn't fight with his own strength — he trusted God and won! &nbsp; <a href="./pictures/david-goliath.jpg" style="font-size:0.85rem;">📁 See picture: David & Goliath</a></li>
                             <li><strong>🙏 God forgives:</strong> David made serious mistakes. He didn't make excuses — he repented with all his heart, and God forgave him!</li>
                         </ul>
                         
@@ -393,7 +468,8 @@
                             </div>
                         </a>
                         
-                        <p style="margin-top: 25px; font-style: italic;">💬 Discuss: What pleases God more — how we look, or what is in our heart?</p>`
+                        <p style="margin-top: 25px; font-style: italic;">💬 Discuss: What pleases God more — how we look, or what is in our heart?</p>
+                        <p style="margin-top: 10px;"><a href="./drawings/david-outline.pdf" style="color:var(--purple-accent);">✏️ Download: David Coloring Page</a></p>`
                     },
                     {
                         title: "🎨 Activity: David's Sheep",
@@ -431,10 +507,10 @@
                             </div>
                             
                             <h4 style="margin: 25px 0 15px;">📝 Instructions:</h4>
-                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline</div>
+                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline &nbsp; <a href="./drawings/david-outline.pdf" style="font-size:0.85rem;">📁 Print outline</a></div>
                             <div class="step"><span class="step-num">2</span> Glue cotton balls onto the sheep to make soft wool 🐑</div>
                             <div class="step"><span class="step-num">3</span> Draw or cut out green grass and blue sky for your background</div>
-                            <div class="step"><span class="step-num">4</span> Write <em>"The LORD is my shepherd — Psalm 23:1"</em> on your page</div>
+                            <div class="step"><span class="step-num">4</span> Write <em>"The LORD is my shepherd — Psalm 23:1"</em> on your page &nbsp; <a href="./crafts/psalm-23-poster.pdf" style="font-size:0.85rem;">📁 Ready-made poster</a></div>
                             <div class="step"><span class="step-num">5</span> Color and decorate with hearts or little sheep!</div>
                             
                             <button class="print-btn" onclick="window.print()">🖨️ Print Activity</button>
@@ -482,7 +558,7 @@
                             He guides me along the right paths<br>
                             for his name’s sake."<br>
                             <br>
-                            — Psalm 23:1–3 (NIV)
+                            — Psalm 23:1–3 (NIV) &nbsp; <a href="https://www.biblegateway.com/passage/?search=Psalm+23&version=NIV" target="_blank" style="font-size:0.9rem; color:#666;">🔗 Full Psalm 23</a>
                         </div>
                         
                         <div class="media-gallery">
@@ -505,7 +581,8 @@
                             </div>
                         </div>
                         
-                        <p style="margin-top: 20px;">💭 Reflect: What does it mean to you that God "refreshes your soul" and leads you along "right paths"?</p>`
+                        <p style="margin-top: 20px;">💭 Reflect: What does it mean to you that God "refreshes your soul" and leads you along "right paths"?</p>
+                        <p style="margin-top: 8px;"><a href="./verses/key-verses-david.pdf" style="color:var(--primary);">📁 Download: Key Verses — David's Life</a></p>`
                     },
                     {
                         title: "🔍 Hook — Trusting God When Afraid",
@@ -514,23 +591,25 @@
                         
                         <div class="discussion-q" onclick="toggleAnswer(this)">
                             <strong>❓ What do you know about David's life?</strong>
-                            <div class="answer">Shepherd → anointed king → defeated Goliath → ruled Israel → sinned seriously → repented → restored. God remained faithful through it all.</div>
+                            <div class="answer">Shepherd → anointed king → defeated Goliath → ruled Israel → sinned seriously → repented → restored. God remained faithful through it all. &nbsp; <a href="https://www.biblegateway.com/passage/?search=1+Samuel+17&version=NIV" target="_blank">🔗 Read 1 Samuel 17</a></div>
                         </div>
                         <div class="discussion-q" onclick="toggleAnswer(this)">
                             <strong>❓ How is genuine repentance different from saying "I'm sorry"?</strong>
-                            <div class="answer">It means admitting the sin without excuses, feeling true sorrow, and choosing to turn back to God. David prayed in Psalm 51: "Create in me a pure heart."</div>
+                            <div class="answer">It means admitting the sin without excuses, feeling true sorrow, and choosing to turn back to God. David prayed in Psalm 51: "Create in me a pure heart." &nbsp; <a href="https://www.biblegateway.com/passage/?search=Psalm+51&version=NIV" target="_blank">🔗 Read Psalm 51</a></div>
                         </div>
                         
                         <div class="key-verse-card">
                             <strong>📖 Key Verse:</strong><br>
                             "The LORD does not look at the things people look at… but at the heart."<br>
-                            — 1 Samuel 16:7
-                        </div>`
+                            — 1 Samuel 16:7 &nbsp; <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16%3A7&version=NIV" target="_blank" style="font-size:0.85rem;">🔗 Bible Gateway</a>
+                        </div>
+                        
+                        <p style="margin-top: 15px;"><a href="./story/david-flashcards.pdf" style="color:var(--secondary);">📁 Review: David Story Flashcards</a></p>`
                     },
                     {
                         title: "📖 Bible Story — Key Events & Lessons",
                         content: `
-                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and select verses from Psalm 51</p>
+                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and select verses from Psalm 51 &nbsp; <a href="https://www.biblegateway.com/passage/?search=1+Samuel+16&version=NIV" target="_blank" style="font-size:0.9rem;">🔗 Read all on Bible Gateway</a></p>
                         
                         <h4 style="margin: 20px 0 10px;">🔑 Four Lessons:</h4>
                         <ul class="key-points">
@@ -556,7 +635,8 @@
                             </div>
                         </a>
                         
-                        <p style="margin-top: 25px; font-style: italic;">💬 Discuss: In what ways can you follow David's example — trusting God, living with integrity, and repenting sincerely when you sin?</p>`
+                        <p style="margin-top: 25px; font-style: italic;">💬 Discuss: In what ways can you follow David's example — trusting God, living with integrity, and repenting sincerely when you sin?</p>
+                        <p style="margin-top: 10px;"><a href="./drawings/psalm-23-activity.pdf" style="color:var(--purple-accent);">✏️ Activity Sheet: Psalm 23 Drawing & Reflection</a></p>`
                     },
                     {
                         title: "🎨 Activity: David's Sheep",
@@ -594,86 +674,12 @@
                             </div>
                             
                             <h4 style="margin: 25px 0 15px;">📝 Instructions:</h4>
-                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline</div>
+                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline &nbsp; <a href="./drawings/david-outline.pdf" style="font-size:0.85rem;">📁 Print outline</a></div>
                             <div class="step"><span class="step-num">2</span> Glue cotton balls onto the sheep to make soft wool 🐑</div>
                             <div class="step"><span class="step-num">3</span> Draw or cut out green grass and blue sky for your background</div>
-                            <div class="step"><span class="step-num">4</span> Write <em>Psalm 23:1–3</em> on your page</div>
+                            <div class="step"><span class="step-num">4</span> Write <em>Psalm 23:1–3</em> on your page &nbsp; <a href="./crafts/psalm-23-poster.pdf" style="font-size:0.85rem;">📁 Ready-made poster</a></div>
                             <div class="step"><span class="step-num">5</span> Add a heart ❤️ — to remind you that God looks at YOUR heart too!</div>
                             
                             <button class="print-btn" onclick="window.print()">🖨️ Print Activity</button>
                         </div>
-                        <p style="margin-top: 20px; font-style: italic;">💭 Reflection: As you create this, think about what it means to be one of God's sheep — following, trusting, and listening to His voice daily.</p>`
-                    }
-                ]
-            }
-        };
-
-        // State
-        let currentLevel = null, currentSlide = 0;
-
-        function openLevel(level) {
-            currentLevel = level; currentSlide = 0;
-            document.getElementById('levelSelect').style.display = 'none';
-            document.getElementById('lessonContainer').style.display = 'block';
-            const badge = document.getElementById('levelBadge');
-            badge.textContent = content[level].badge;
-            badge.className = 'level-indicator ' + content[level].badgeClass;
-            renderSlides(); updateSlideView();
-        }
-
-        function renderSlides() {
-            const area = document.getElementById('slideArea');
-            const slides = content[currentLevel].slides;
-            area.innerHTML = '';
-            slides.forEach((slide, i) => {
-                const el = document.createElement('div');
-                el.className = 'slide'; el.id = `slide-${i}`;
-                el.style.display = i === 0 ? 'block' : 'none';
-                el.innerHTML = `<h2 class="slide-title">${slide.title}</h2><div class="slide-content">${slide.content}</div>`;
-                area.appendChild(el);
-            });
-            document.getElementById('totalSlides').textContent = slides.length;
-            const dots = document.getElementById('dotsContainer');
-            dots.innerHTML = '';
-            slides.forEach((_, i) => {
-                const d = document.createElement('div');
-                d.className = 'dot' + (i === 0 ? ' active' : '');
-                d.onclick = () => goToSlide(i);
-                dots.appendChild(d);
-            });
-        }
-
-        function updateSlideView() {
-            const slides = content[currentLevel].slides;
-            for (let i = 0; i < slides.length; i++) {
-                document.getElementById(`slide-${i}`).style.display = i === currentSlide ? 'block' : 'none';
-            }
-            document.getElementById('currentSlide').textContent = currentSlide + 1;
-            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-            document.getElementById('prevBtn').disabled = currentSlide === 0;
-            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
-        }
-
-        function nextSlide() {
-            if (currentSlide < content[currentLevel].slides.length - 1) { currentSlide++; updateSlideView(); }
-        }
-        function prevSlide() {
-            if (currentSlide > 0) { currentSlide--; updateSlideView(); }
-        }
-        function goToSlide(i) { currentSlide = i; updateSlideView(); }
-        function goBack() {
-            document.getElementById('levelSelect').style.display = 'block';
-            document.getElementById('lessonContainer').style.display = 'none';
-            currentLevel = null;
-        }
-        function toggleAnswer(el) { el.querySelector('.answer').classList.toggle('show'); }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (!currentLevel) return;
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-    </script>
-</body>
-</html>
+                        <p style="margin-top: 20px; font-style: italic;">💭 Reflection
