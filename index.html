@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: David — A Shepherd Boy Who Became King</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐑</text></svg>">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #f9a826;
+            --accent: #6bcaa3;
+            --dark: #2c3e50;
+            --light: #fef9e7;
+            --heart: #e74c3c;
+            --gold: #f1c40f;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --l1: linear-gradient(135deg, #74b9ff, #0984e3);
+            --l2: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #e8f4f8, #fef9e7); min-height: 100vh; color: var(--dark); transition: all 0.4s ease; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        
+        /* Level Select */
+        .level-selector { text-align: center; padding: 40px 20px; }
+        .level-selector h1 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+        .level-buttons { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .level-btn { padding: 40px 50px; border: none; border-radius: 20px; font-size: 1.5rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow); min-width: 250px; color: white; }
+        .l1-btn { background: var(--l1); }
+        .l2-btn { background: var(--l2); }
+        .level-btn:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
+        .emoji { font-size: 3rem; display: block; margin-bottom: 10px; }
+        
+        /* Lesson Area */
+        .lesson-container { display: none; padding: 20px; }
+        .lesson-header { text-align: center; margin-bottom: 30px; position: relative; }
+        .back-btn { position: absolute; left: 0; top: 50%; transform: translateY(-50%); background: var(--secondary); border: none; padding: 10px 20px; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .back-btn:hover { background: #e69500; }
+        .level-indicator { display: inline-block; padding: 8px 20px; border-radius: 20px; color: white; font-weight: bold; margin-bottom: 10px; }
+        .l1-indicator { background: #0984e3; }
+        .l2-indicator { background: #6c5ce7; }
+        h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 5px; }
+        
+        /* Slides */
+        .slide { background: white; border-radius: 20px; padding: 40px; min-height: 500px; box-shadow: var(--shadow); margin-bottom: 20px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-title { font-size: 1.8rem; color: var(--secondary); margin-bottom: 30px; border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
+        .slide-content { font-size: 1.15rem; line-height: 1.8; }
+        
+        /* Verse & Truth Cards */
+        .bible-verse { background: linear-gradient(135deg, #fff3cd, #ffeaa7); border-left: 5px solid var(--gold); padding: 25px; border-radius: 10px; font-style: italic; margin: 25px 0; position: relative; }
+        .bible-verse::before { content: "✨"; position: absolute; top: -10px; left: 15px; font-size: 1.5rem; }
+        .key-verse-card { background: #e3f2fd; border: 2px solid var(--primary); border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .truth-box { background: linear-gradient(135deg, #fff5d6, #ffd93d44); padding: 25px; border-radius: 15px; border: 2px solid var(--gold); font-size: 1.1rem; line-height: 1.8; }
+        .main-lesson { font-size: 1.3rem; font-weight: bold; color: var(--heart); margin-top: 20px; text-align: center; }
+        
+        /* Lists & Q&A */
+        .key-points { list-style: none; margin: 20px 0; }
+        .key-points li { padding: 12px 0; border-bottom: 1px dashed #ddd; display: flex; align-items: flex-start; gap: 12px; }
+        .key-points li::before { content: "💡"; }
+        .heart-point::before { content: "❤️"; }
+        .discussion-q { background: #e8f4f8; padding: 15px 20px; border-radius: 10px; margin: 10px 0; cursor: pointer; transition: all 0.3s; }
+        .discussion-q:hover { background: #d1e7f0; transform: translateX(5px); }
+        .answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-left: 25px; color: #555; }
+        .answer.show { max-height: 200px; margin-top: 10px; }
+        
+        /* Activity */
+        .activity-box { background: linear-gradient(135deg, #d4edda, #b2f7d7); border-radius: 15px; padding: 25px; margin-top: 20px; }
+        .materials-list { columns: 2; margin: 15px 0; }
+        .step { background: white; padding: 12px; margin: 8px 0; border-radius: 8px; border-left: 4px solid var(--accent); }
+        .step-num { display: inline-block; width: 28px; height: 28px; background: var(--secondary); color: white; border-radius: 50%; text-align: center; line-height: 28px; margin-right: 10px; font-weight: bold; }
+        .print-btn { margin-top: 15px; background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        .print-btn:hover { background: #3a5985; }
+        
+        /* Navigation */
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        .nav-btn { padding: 12px 30px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s; background: var(--primary); color: white; }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .nav-btn:hover:not(:disabled) { transform: scale(1.05); background: #3a5985; }
+        .slide-indicator { text-align: center; margin-top: 15px; font-size: 1rem; color: #777; }
+        .dots { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; cursor: pointer; transition: all 0.3s; }
+        .dot.active { background: var(--secondary); transform: scale(1.3); }
+        .keyboard-hint { text-align: center; font-size: 0.9rem; color: #999; margin-top: 10px; }
+        
+        /* Classroom Caption */
+        .caption-box { background: #f3e5f5; border-left: 4px solid #9c27b0; padding: 15px; border-radius: 0 10px 10px 0; margin-top: 30px; }
+        .copy-btn { background: #9c27b0; color: white; border: none; padding: 6px 12px; border-radius: 5px; margin-top: 8px; cursor: pointer; }
+        .copy-btn.copied { background: #4caf50; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide { padding: 25px; }
+            h1 { font-size: 1.6rem; }
+            .materials-list { columns: 1; }
+            .back-btn { position: static; margin-bottom: 15px; display: inline-block; }
+        }
+        @media print {
+            .nav-buttons, .dots, .back-btn, .keyboard-hint { display: none !important; }
+            .slide { min-height: auto; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Level Selection -->
+        <div id="levelSelect" class="level-selector">
+            <h1>📖 Lesson 3: David</h1>
+            <p class="subtitle">A Shepherd Boy Who Became King</p>
+            <div class="level-buttons">
+                <button class="level-btn l1-btn" onclick="openLevel(1)">
+                    <span class="emoji">👶</span>Level 1
+                </button>
+                <button class="level-btn l2-btn" onclick="openLevel(2)">
+                    <span class="emoji">🧠</span>Level 2
+                </button>
+            </div>
+            
+            <div class="caption-box" style="margin-top: 40px;">
+                <strong>📋 Google Classroom Caption</strong>
+                <p id="captionText" style="margin-top: 8px; font-size: 0.95rem;">
+                    📖 Lesson 3: David — A Shepherd Boy Who Became King<br>
+                    God looks at the heart! 💛 David trusted God, defeated Goliath, became king, and learned to repent when he sinned.<br>
+                    👉 Choose your level and follow along! Memory Verse: Psalm 23:1-3
+                </p>
+                <button class="copy-btn" onclick="copyCaption(this)">Copy Text</button>
+            </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <div id="lessonContainer" class="lesson-container">
+            <div class="lesson-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <span id="levelBadge" class="level-indicator"></span>
+                <h1>Lesson 3: David</h1>
+                <p class="subtitle">A Shepherd Boy Who Became King</p>
+            </div>
+
+            <div id="slideArea"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" onclick="prevSlide()">← Previous</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+            </div>
+
+            <div class="slide-indicator">
+                Slide <span id="currentSlide">1</span> of <span id="totalSlides">5</span>
+                <div class="dots" id="dotsContainer"></div>
+                <p class="keyboard-hint">💡 Tip: Use ← → arrow keys to navigate</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ALL original content preserved from your document
+        const content = {
+            1: {
+                badge: "Level 1",
+                badgeClass: "l1-indicator",
+                slides: [
+                    {
+                        title: "💡 The Big Truth",
+                        content: `
+                        <div class="truth-box">
+                            David’s life teaches us that God looks at the <strong>heart</strong> and desires a person who trusts Him, follows Him, and sincerely repents when they fail.<br><br>
+                            ✨ David was a humble shepherd who became a king<br>
+                            ✨ He courageously trusted God when facing Goliath<br>
+                            ✨ He depended on God throughout many difficulties<br>
+                            ✨ When he sinned, he confessed and sought God’s forgiveness<br><br>
+                            God is gracious, faithful, sees beyond outward appearances, works through humble people, and keeps His promises!
+                            <div class="main-lesson">
+                                We do not need to be perfect — we just need a heart that trusts God, obeys Him, and turns back to Him when we sin! ❤️
+                            </div>
+                        </div>`
+                    },
+                    {
+                        title: "🎯 Learning Objectives",
+                        content: `
+                        <ul class="key-points">
+                            <li>Identify David as a shepherd boy who became a king</li>
+                            <li>Understand that God looks at the <strong>heart</strong>, not just how someone looks</li>
+                            <li>Recognize that David trusted God when he faced the giant Goliath</li>
+                            <li>Understand that God forgives us when we sincerely repent and ask for forgiveness</li>
+                        </ul>`
+                    },
+                    {
+                        title: "🙌 Memory Verse",
+                        content: `
+                        <div class="bible-verse">
+                            "The LORD is my shepherd, I lack nothing.<br>
+                            He makes me lie down in green pastures."<br>
+                            <br>
+                            — Psalm 23:1-2 (NIV)
+                        </div>
+                        <p style="margin-top: 20px; font-size: 1.1rem;">🐑 Practice together: Imagine God as your caring Shepherd who always watches over you!</p>`
+                    },
+                    {
+                        title: "🔍 Hook: Who Am I?",
+                        content: `
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;">Imagine seeing a shepherd, a king, and a giant! 🐑👑👹</p>
+                        
+                        <div class="discussion-q" onclick="toggleAnswer(this)">
+                            <strong>❓ Can a shepherd boy become a king?</strong>
+                            <div class="answer">Yes! God chose David — a young shepherd boy — to become the king of Israel!</div>
+                        </div>
+                        <div class="discussion-q" onclick="toggleAnswer(this)">
+                            <strong>❓ Can someone who looks small do something great?</strong>
+                            <div class="answer">Absolutely! David was the youngest and smallest, but God used him to do amazing things!</div>
+                        </div>
+                        <div class="discussion-q" onclick="toggleAnswer(this)">
+                            <strong>❓ What would you do if you had to face a giant?</strong>
+                            <div class="answer">David trusted God! He said, "You come against me with sword and spear, but I come against you in the name of the LORD!"</div>
+                        </div>
+                        
+                        <div class="key-verse-card">
+                            <strong>📖 Key Verse:</strong><br>
+                            "The LORD looks at the heart."<br>
+                            — 1 Samuel 16:7
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-weight: bold; color: var(--primary);">✨ Today we learn about David — who trusted God, defeated a giant, and became king!</p>`
+                    },
+                    {
+                        title: "📖 Bible Story",
+                        content: `
+                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and Psalm 51</p>
+                        
+                        <h4 style="margin: 20px 0 10px;">📝 Four Lessons:</h4>
+                        <ul class="key-points">
+                            <li><strong>👑 God chose David:</strong> Samuel saw David's brothers — tall and impressive. But God chose the shepherd boy!</li>
+                            <li class="heart-point"><strong>❤️ God looks at the heart:</strong> 1 Samuel 16:7 — People look at the outside, but the LORD looks at the heart.</li>
+                            <li><strong>⚔️ David trusted God:</strong> Goliath was huge! David didn't fight with his own strength — he trusted God and won!</li>
+                            <li><strong>🙏 God forgives:</strong> David made serious mistakes. He didn't make excuses — he repented with all his heart, and God forgave him!</li>
+                        </ul>
+                        
+                        <p style="margin-top: 20px; font-style: italic;">💬 Discuss: What pleases God more — how we look, or what is in our heart?</p>`
+                    },
+                    {
+                        title: "🎨 Activity: David's Sheep",
+                        content: `
+                        <div class="activity-box">
+                            <h4 style="margin-bottom: 15px;">📦 Materials Needed:</h4>
+                            <div class="materials-list">
+                                <p>✅ White paper or cardstock</p>
+                                <p>✅ Cotton balls</p>
+                                <p>✅ Glue</p>
+                                <p>✅ Crayons / colored pencils</p>
+                                <p>✅ Scissors</p>
+                                <p>✅ Green & blue colored paper</p>
+                            </div>
+                            
+                            <h4 style="margin: 25px 0 15px;">📝 Instructions:</h4>
+                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline</div>
+                            <div class="step"><span class="step-num">2</span> Glue cotton balls onto the sheep to make soft wool 🐑</div>
+                            <div class="step"><span class="step-num">3</span> Draw or cut out green grass and blue sky for your background</div>
+                            <div class="step"><span class="step-num">4</span> Write <em>"The LORD is my shepherd — Psalm 23:1"</em> on your page</div>
+                            <div class="step"><span class="step-num">5</span> Color and decorate with hearts or little sheep!</div>
+                            
+                            <button class="print-btn" onclick="window.print()">🖨️ Print Activity</button>
+                        </div>`
+                    }
+                ]
+            },
+            2: {
+                badge: "Level 2",
+                badgeClass: "l2-indicator",
+                slides: [
+                    {
+                        title: "💡 The Big Truth",
+                        content: `
+                        <div class="truth-box">
+                            David’s life teaches us that God looks at the <strong>heart</strong> and desires a person who trusts Him, follows Him, and sincerely repents when they fail.<br><br>
+                            ✨ God works through humble people — shepherd to king<br>
+                            ✨ Faith in God, not human strength, overcomes obstacles<br>
+                            ✨ God is gracious, faithful, and keeps His promises<br>
+                            ✨ Genuine repentance — not excuses — brings God's forgiveness<br><br>
+                            God sees beyond outward appearances and remains faithful even when we fail.<br><br>
+                            <div class="main-lesson">
+                                We do not need to be perfect — we need a heart that trusts God, obeys Him, and turns back to Him when we sin! ❤️
+                            </div>
+                        </div>`
+                    },
+                    {
+                        title: "🎯 Learning Objectives",
+                        content: `
+                        <ul class="key-points">
+                            <li>Describe key events in David’s life and explain how he trusted God in difficult situations</li>
+                            <li>Explain what it means to have a heart that follows God, using David’s life as an example</li>
+                            <li>Understand the importance of <strong>genuine repentance</strong> — not making excuses</li>
+                            <li>Identify God’s character: He sees the heart, gives grace, forgives, and remains faithful to His promises</li>
+                        </ul>`
+                    },
+                    {
+                        title: "🙌 Memory Verse",
+                        content: `
+                        <div class="bible-verse">
+                            "The LORD is my shepherd, I lack nothing.<br>
+                            He makes me lie down in green pastures,<br>
+                            he leads me beside quiet waters,<br>
+                            He refreshes my soul.<br>
+                            He guides me along the right paths<br>
+                            for his name’s sake."<br>
+                            <br>
+                            — Psalm 23:1–3 (NIV)
+                        </div>
+                        <p style="margin-top: 20px;">💭 Reflect: What does it mean to you that God "refreshes your soul" and leads you along "right paths"?</p>`
+                    },
+                    {
+                        title: "🔍 Hook — Trusting God When Afraid",
+                        content: `
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;"><em>"Have you ever faced a difficult situation where you had to trust God even when you were afraid?"</em></p>
+                        
+                        <div class="discussion-q" onclick="toggleAnswer(this)">
+                            <strong>❓ What do you know about David's life?</strong>
+                            <div class="answer">Shepherd → anointed king → defeated Goliath → ruled Israel → sinned seriously → repented → restored. God remained faithful through it all.</div>
+                        </div>
+                        <div class="discussion-q" onclick="toggleAnswer(this)">
+                            <strong>❓ How is genuine repentance different from saying "I'm sorry"?</strong>
+                            <div class="answer">It means admitting the sin without excuses, feeling true sorrow, and choosing to turn back to God. David prayed in Psalm 51: "Create in me a pure heart."</div>
+                        </div>
+                        
+                        <div class="key-verse-card">
+                            <strong>📖 Key Verse:</strong><br>
+                            "The LORD does not look at the things people look at… but at the heart."<br>
+                            — 1 Samuel 16:7
+                        </div>`
+                    },
+                    {
+                        title: "📖 Bible Story — Key Events & Lessons",
+                        content: `
+                        <p><strong>📜 Reading:</strong> 1 Samuel 16–17 and select verses from Psalm 51</p>
+                        
+                        <h4 style="margin: 20px 0 10px;">🔑 Four Lessons:</h4>
+                        <ul class="key-points">
+                            <li><strong>👑 God chooses by heart:</strong> Samuel expected a tall, impressive king. God chose David because his heart was humble, faithful, and ready to serve.</li>
+                            <li class="heart-point"><strong>⚔️ Trust over fear:</strong> David declared: <em>"You come with sword… I come in the name of the LORD!"</em> (1 Samuel 17:45–47). His confidence was in God, not himself.</li>
+                            <li><strong>🙏 True repentance:</strong> David sinned greatly but took full responsibility. No excuses. Psalm 51 shows his broken, contrite heart — and God forgave and restored him.</li>
+                            <li><strong>✨ God's faithfulness:</strong> God kept His covenant. David's line continued, and Jesus was born from his family! God's promises never fail.</li>
+                        </ul>
+                        
+                        <p style="margin-top: 20px; font-style: italic;">💬 Discuss: In what ways can you follow David's example — trusting God, living with integrity, and repenting sincerely when you sin?</p>`
+                    },
+                    {
+                        title: "🎨 Activity: David's Sheep",
+                        content: `
+                        <div class="activity-box">
+                            <h4 style="margin-bottom: 15px;">📦 Materials Needed:</h4>
+                            <div class="materials-list">
+                                <p>✅ White paper or cardstock</p>
+                                <p>✅ Cotton balls</p>
+                                <p>✅ Glue</p>
+                                <p>✅ Crayons / colored pencils</p>
+                                <p>✅ Scissors</p>
+                                <p>✅ Green & blue colored paper</p>
+                            </div>
+                            
+                            <h4 style="margin: 25px 0 15px;">📝 Instructions:</h4>
+                            <div class="step"><span class="step-num">1</span> Take your paper with a simple sheep outline</div>
+                            <div class="step"><span class="step-num">2</span> Glue cotton balls onto the sheep to make soft wool 🐑</div>
+                            <div class="step"><span class="step-num">3</span> Draw or cut out green grass and blue sky for your background</div>
+                            <div class="step"><span class="step-num">4</span> Write <em>Psalm 23:1–3</em> on your page</div>
+                            <div class="step"><span class="step-num">5</span> Add a heart ❤️ — to remind you that God looks at YOUR heart too!</div>
+                            
+                            <button class="print-btn" onclick="window.print()">🖨️ Print Activity</button>
+                        </div>
+                        <p style="margin-top: 20px; font-style: italic;">💭 Reflection: As you create this, think about what it means to be one of God's sheep — following, trusting, and listening to His voice daily.</p>`
+                    }
+                ]
+            }
+        };
+
+        // State
+        let currentLevel = null, currentSlide = 0;
+
+        function openLevel(level) {
+            currentLevel = level; currentSlide = 0;
+            document.getElementById('levelSelect').style.display = 'none';
+            document.getElementById('lessonContainer').style.display = 'block';
+            const badge = document.getElementById('levelBadge');
+            badge.textContent = content[level].badge;
+            badge.className = 'level-indicator ' + content[level].badgeClass;
+            renderSlides(); updateSlideView();
+        }
+
+        function renderSlides() {
+            const area = document.getElementById('slideArea');
+            const slides = content[currentLevel].slides;
+            area.innerHTML = '';
+            slides.forEach((slide, i) => {
+                const el = document.createElement('div');
+                el.className = 'slide'; el.id = `slide-${i}`;
+                el.style.display = i === 0 ? 'block' : 'none';
+                el.innerHTML = `<h2 class="slide-title">${slide.title}</h2><div class="slide-content">${slide.content}</div>`;
+                area.appendChild(el);
+            });
+            document.getElementById('totalSlides').textContent = slides.length;
+            const dots = document.getElementById('dotsContainer');
+            dots.innerHTML = '';
+            slides.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.className = 'dot' + (i === 0 ? ' active' : '');
+                d.onclick = () => goToSlide(i);
+                dots.appendChild(d);
+            });
+        }
+
+        function updateSlideView() {
+            const slides = content[currentLevel].slides;
+            for (let i = 0; i < slides.length; i++) {
+                document.getElementById(`slide-${i}`).style.display = i === currentSlide ? 'block' : 'none';
+            }
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < content[currentLevel].slides.length - 1) { currentSlide++; updateSlideView(); }
+        }
+        function prevSlide() {
+            if (currentSlide > 0) { currentSlide--; updateSlideView(); }
+        }
+        function goToSlide(i) { currentSlide = i; updateSlideView(); }
+        function goBack() {
+            document.getElementById('levelSelect').style.display = 'block';
+            document.getElementById('lessonContainer').style.display = 'none';
+            currentLevel = null;
+        }
+        function toggleAnswer(el) { el.querySelector('.answer').classList.toggle('show'); }
+        function copyCaption(btn) {
+            navigator.clipboard.writeText(document.getElementById('captionText').innerText);
+            btn.classList.add('copied'); btn.textContent = '✓ Copied!';
+            setTimeout(() => { btn.classList.remove('copied'); btn.textContent = 'Copy Text'; }, 2000);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!currentLevel) return;
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
